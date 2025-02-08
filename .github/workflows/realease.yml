@@ -169,7 +169,7 @@ jobs:
             then
               sudo rm -f rocky/${{ github.event.inputs.release }}/$arch/${{ github.event.inputs.program }}*.$arch.rpm
             fi
-            sudo /bin/cp -ra ../artifacts/${{ github.event.inputs.program }}-$arch/${{ github.event.inputs.program }}-${{ github.event.inputs.version }}-1.el9.$arch.rpm rocky/${{ github.event.inputs.release }}/$arch
+            sudo /bin/cp -ra artifacts/${{ github.event.inputs.program }}-$arch/${{ github.event.inputs.program }}-${{ github.event.inputs.version }}-1.el9.$arch.rpm rocky/${{ github.event.inputs.release }}/$arch
           done
           rm -rf $GITHUB_WORKSPACE/artifacts
           rpms=`docker run -itd -v $GITHUB_WORKSPACE:/centos_rpms ghcr.io/codetiger666/images/rocky:${{ github.event.inputs.release }}`
