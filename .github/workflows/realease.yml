@@ -84,7 +84,7 @@ jobs:
           echo "export project_arch=${{ matrix.arch }}" >> $HOME/.profile
           source $HOME/.profile
 
-      - name: run-rocky ${{ github.event.inputs.program }}-${{ matrix.arch }}
+      - name: run-redhat ${{ github.event.inputs.program }}-${{ matrix.arch }}
         # 出错继续
         continue-on-error: true
         run: |
@@ -155,23 +155,24 @@ jobs:
         uses: actions/download-artifact@main
         with:
           path: artifacts
+          
       - name: upload ${{ github.event.inputs.program }}
         run: |
           source $HOME/.profile
           archs=("x86_64" "aarch64")
-          sudo mkdir -p rocky/${{ github.event.inputs.release }}/${{ github.event.inputs.arch }}/
+          sudo mkdir -p redhat/${{ github.event.inputs.release }}/${{ github.event.inputs.arch }}/
           git pull
           for arch in "${archs[@]}"; do
             if [ "${{ github.event.inputs.remove }}" = "true" ];
             then
-              sudo rm -f rocky/${{ github.event.inputs.release }}/$arch/${{ github.event.inputs.program }}*.$arch.rpm
+              sudo rm -f redhat/${{ github.event.inputs.release }}/$arch/${{ github.event.inputs.program }}*.$arch.rpm
             fi
-            sudo /bin/cp -ra artifacts/${{ github.event.inputs.program }}-$arch/${{ github.event.inputs.program }}-${{ github.event.inputs.version }}-1.el9.$arch.rpm rocky/${{ github.event.inputs.release }}/$arch
+            sudo /bin/cp -ra artifacts/${{ github.event.inputs.program }}-$arch/${{ github.event.inputs.program }}-${{ github.event.inputs.version }}-1.el9.$arch.rpm redhat/${{ github.event.inputs.release }}/$arch
           done
           rm -rf $GITHUB_WORKSPACE/artifacts
           rpms=`docker run -itd -v $GITHUB_WORKSPACE:/centos_rpms ghcr.io/codetiger666/images/rocky:${{ github.event.inputs.release }}`
           for arch in "${archs[@]}"; do
-            docker exec -i $rpms createrepo /centos_rpms/rocky/${{ github.event.inputs.release }}/$arch
+            docker exec -i $rpms createrepo /centos_rpms/redhat/${{ github.event.inputs.release }}/$arch
           done
 
       - name: git add
