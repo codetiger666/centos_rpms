@@ -1,0 +1,2 @@
+WORK_PATH=/usr/local/gitea/data
+WORK_PORT=20504

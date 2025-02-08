@@ -1,0 +1,16 @@
+[Unit]
+Description=Hysteria Service
+After=network.target
+
+[Service]
+Type=forking
+User=3000
+Group=3000
+WorkingDirectory=/usr/local/hysteria
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/local/hysteria/hysteria.sh start
+ExecStop=/usr/local/hysteria/hysteria.sh stop
+
+[Install]
+WantedBy=multi-user.target

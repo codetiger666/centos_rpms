@@ -1,0 +1,17 @@
+[Unit]
+Description=Zabbix Agent
+After=syslog.target
+After=network.target
+
+[Service]
+User=zabbix
+Group=zabbix
+Type=forking
+PIDFile=/tmp/zabbix_agentd.pid
+ExecStart=/usr/local/zabbix/sbin/zabbix_agentd
+ExecStop=ps -ef | grep zabbix | grep -v grep | cut -c 9-15 | xargs kill -s 9
+RestartSec=10s
+TimeoutSec=0
+
+[Install]
+WantedBy=multi-user.target

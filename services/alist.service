@@ -1,0 +1,14 @@
+[Unit]
+Description=Alist start stop
+After=network-online.target
+
+[Service]
+User=alist
+Group=alist
+Type=forking
+WorkingDirectory=/usr/local/alist
+ExecStart=/usr/local/alist/alist.sh start
+ExecStop=/usr/local/alist/alist.sh stop
+
+[Install]
+WantedBy=multi-user.target

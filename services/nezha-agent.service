@@ -1,0 +1,15 @@
+[Unit]
+Description=Nezha Agent Service
+After=network.target
+
+[Service]
+Type=forking
+User=nezha
+Group=nezha
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/local/nezha/nezha-agent.sh start
+ExecStop=/usr/local/nezha/nezha-agent.sh stop
+
+[Install]
+WantedBy=multi-user.target
