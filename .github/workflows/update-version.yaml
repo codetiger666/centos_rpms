@@ -1,0 +1,23 @@
+name: update-version
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  sync-and-patch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: get new version
+        run: |
+          while IFS== read -r program version repo; do
+            # 去除 key 和 value 两边的空白（可选）
+            program=$(echo "$program" | xargs)
+            version=$(echo "$version" | xargs)
+            repo=$(echo "$repo" | xargs)
+            echo "$program$version$repo"
+          done < version
