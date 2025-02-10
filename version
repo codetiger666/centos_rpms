@@ -1,5 +1,5 @@
 openresty=1.25.3.2=openresty/openresty
-nezha-agent=1.7.2=nezhahq/agent
+nezha-agent=1.7.3=nezhahq/agent
 onedrive=2.5.4=abraunegg/onedrive
 frp=0.61.1=fatedier/frp
 gitea=1.23.3=go-gitea/gitea
