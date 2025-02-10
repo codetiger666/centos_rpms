@@ -78,6 +78,7 @@ jobs:
                   ]
               }
               }"
+              sleep 2
             fi
           done < version
 
