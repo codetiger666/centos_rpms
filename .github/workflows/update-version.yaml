@@ -14,10 +14,17 @@ jobs:
       
       - name: get new version
         run: |
-          while IFS='=' read -r program version repo; do
+          while IFS= read -r line || [[ -n "$line" ]]; do
+            # 使用 '=' 分隔行
+            IFS='=' read -r program version repo; do
             # 去除 key 和 value 两边的空白（可选）
             program=$(echo "$program" | xargs)
             version=$(echo "$version" | xargs)
             repo=$(echo "$repo" | xargs)
-            echo "$program$version$repo"
+            if [[ -z "$program" || -z "$version" || -z "$repo" ]]; then
+              # 如果任意一个变量为空，跳过当前循环迭代
+              continue
+            fi
+            new_version=$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+            echo "当前处理$program 获取到的版本${new_version}"
           done < version
