@@ -80,7 +80,7 @@ jobs:
       - name: init-env
         run: |
           echo "export project_program=${{ github.event.inputs.program }}" >> $HOME/.profile
-          echo "export project_program=${{ github.event.inputs.version }}" >> $HOME/.profile
+          echo "export project_version=${{ github.event.inputs.version }}" >> $HOME/.profile
           echo "export project_arch=${{ matrix.arch }}" >> $HOME/.profile
           source $HOME/.profile
 

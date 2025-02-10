@@ -78,7 +78,7 @@ jobs:
                   ]
               }
               }"
-              sleep 10
+              sleep 60
             fi
           done < version
 
