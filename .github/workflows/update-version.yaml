@@ -5,8 +5,8 @@ on:
     - cron: '0 2 * * *'
 
 jobs:
-  sync-and-patch:
-    runs-on: ubuntu-latest
+  update-version:
+    runs-on: ubuntu-24.04-arm
 
     steps:
       - name: checkout
