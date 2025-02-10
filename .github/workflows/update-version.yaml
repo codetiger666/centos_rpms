@@ -14,7 +14,7 @@ jobs:
       
       - name: get new version
         run: |
-          while IFS== read -r program version repo; do
+          while IFS='=' read -r program version repo; do
             # 去除 key 和 value 两边的空白（可选）
             program=$(echo "$program" | xargs)
             version=$(echo "$version" | xargs)
