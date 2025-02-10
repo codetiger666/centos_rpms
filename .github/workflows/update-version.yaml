@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+
+      - name: git init
+        run: |
+          git config --global user.email ${{ secrets.email }}
+          git config --global user.name "codetiger666"
       
       - name: get new version
         run: |
@@ -26,5 +31,30 @@ jobs:
               continue
             fi
             new_version=$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r '.tag_name' | sed 's/^v//')
-            echo "当前处理$program 获取到的版本${new_version}"
+            echo "$program获取到的最新版本${new_version}"
+            if [ "$version" = "$new_version" ]; then
+                echo "$program最新版本已经编译过"
+                continue
+            else
+              run_workflow=$(curl https://api.github.com/repos/codetiger666/rpms/actions/runs | jq '.workflow_runs[] | select(.name == "update-version")' | jq 'select(.status == "queued" or .status == "in_progress")')
+              while true; do
+                # 如果变量 a 为空，跳过当前循环
+                if [ -z "run_workflow" ]; then
+                  continue
+                fi
+                echo "当前有编译任务进行中，等到5s后重试"
+                sleep 5
+                run_workflow=$(curl https://api.github.com/repos/codetiger666/rpms/actions/runs | jq '.workflow_runs[] | select(.name == "update-version")' | jq 'select(.status == "queued" or .status == "in_progress")')
+              done
+              # 替换版本
+              sed -i 's/$program=$version/$program=$new_version/' version
+              git add .
+              git commit -m "$program更新版本$new_version"
+              git push
+              curl -X POST \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/${{ github.repository }}/actions/workflows/release.yml/dispatches \
+              -d "{\"ref\":\"main\",\"inputs\":{\"program\":\"$program\",\"version\":\"$version\",\"program\":\"$program\",\"release\":\"9\",\"remove\":\"true\",\"ssh\":\"false\"}}"
+            fi
           done < version
