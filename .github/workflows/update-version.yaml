@@ -16,7 +16,7 @@ jobs:
         run: |
           while IFS= read -r line || [[ -n "$line" ]]; do
             # 使用 '=' 分隔行
-            IFS='=' read -r program version repo; do
+            IFS='=' read -r program version repo <<< "$line"
             # 去除 key 和 value 两边的空白（可选）
             program=$(echo "$program" | xargs)
             version=$(echo "$version" | xargs)
