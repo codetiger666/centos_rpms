@@ -36,7 +36,7 @@ jobs:
                 echo "$program最新版本已经编译过"
                 continue
             else
-              run_workflow=$(curl https://api.github.com/repos/codetiger666/rpms/actions/runs | jq '.workflow_runs[] | select(.name == "update-version")' | jq 'select(.status == "queued" or .status == "in_progress")')
+              run_workflow=$(curl https://api.github.com/repos/codetiger666/rpms/actions/runs | jq '.workflow_runs[] | select(.name == "release")' | jq 'select(.status == "queued" or .status == "in_progress")')
               while true; do
                 # 如果变量 a 为空，跳过当前循环
                 if [ -z "run_workflow" ]; then
