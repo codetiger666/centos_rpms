@@ -47,7 +47,7 @@ jobs:
                 run_workflow=$(curl https://api.github.com/repos/codetiger666/rpms/actions/runs | jq '.workflow_runs[] | select(.name == "release")' | jq 'select(.status == "queued" or .status == "in_progress")')
               done
               # 替换版本
-              sed -i 's/$program=$version/$program=$new_version/' version
+              sed -i "s/$program=$version/$program=$new_version/" version
               git add .
               git commit -m "$program更新版本$new_version"
               git push
