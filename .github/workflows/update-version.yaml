@@ -40,7 +40,7 @@ jobs:
               while true; do
                 # 如果变量 a 为空，跳过当前循环
                 if [ -z "$run_workflow" ]; then
-                  continue
+                  break
                 fi
                 echo "当前有编译任务进行中，等到5s后重试"
                 sleep 5
