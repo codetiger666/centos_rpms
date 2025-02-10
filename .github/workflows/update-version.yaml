@@ -55,7 +55,7 @@ jobs:
               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               -H "Accept: application/vnd.github.v3+json" \
               https://api.github.com/repos/${{ github.repository }}/actions/workflows/release.yml/dispatches \
-              -d "{\"ref\":\"main\",\"inputs\":{\"program\":\"$program\",\"version\":\"$new_version\",\"program\":\"$program\",\"release\":\"9\",\"remove\":\"true\",\"ssh\":\"false\"}}"
+              -d "{\"ref\":\"main\",\"inputs\":{\"program\":\"$program\",\"version\":\"$new_version\",\"release\":\"9\",\"remove\":\"true\",\"ssh\":\"false\"}}"
               echo "$program触发编译版本:${new_version}"
               curl -X POST \
               --url https://api.telegram.org/bot${{ secrets.TG_BOT_KEY }}/sendMessage \
