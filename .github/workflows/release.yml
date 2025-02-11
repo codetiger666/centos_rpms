@@ -200,7 +200,7 @@ jobs:
           --header 'Content-Type: application/json' \
           --data "{
           \"chat_id\": \"${{ secrets.TG_BOT_USER_ID }}\",
-          \"text\": \"\`${{ github.event.inputs.program | replace('-', '\\\\-') }}\`编译成功，版本：\`${{ github.event.inputs.version | replace('.', '\\\\.') }\`\",
+          \"text\": \"\`${{ replace(github.event.inputs.program, '-', '\\\\-') }}\`编译成功，版本：${{ replace(github.event.inputs.vwrsion, '.', '\\\\.') }}\`\",
           \"parse_mode\": \"MarkdownV2\"
           }"
 

@@ -46,7 +46,7 @@ jobs:
                 --header 'Content-Type: application/json' \
                 --data "{
                 \"chat_id\": \"${{ secrets.TG_BOT_USER_ID }}\",
-                \"text\": \"\`${program//-/\\\\-}版本:${new_version//./\\\\.}已经编译完成\`\",
+                \"text\": \"\`${program//-/\\\\-}\`版本:\`${new_version//./\\\\.}\`已经编译完成\",
                 \"parse_mode\": \"MarkdownV2\",
                 \"reply_markup\": {
                     \"inline_keyboard\": [
