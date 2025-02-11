@@ -155,7 +155,14 @@ jobs:
         uses: actions/download-artifact@main
         with:
           path: artifacts
-          
+
+      # 初始化环境变量
+      - name: init-env
+        run: |
+          echo "export project_program=${{ github.event.inputs.program }}" >> $HOME/.profile
+          echo "export project_version=${{ github.event.inputs.version }}" >> $HOME/.profile
+          source $HOME/.profile
+
       - name: upload ${{ github.event.inputs.program }}
         run: |
           source $HOME/.profile
@@ -200,7 +207,7 @@ jobs:
           --header 'Content-Type: application/json' \
           --data "{
           \"chat_id\": \"${{ secrets.TG_BOT_USER_ID }}\",
-          \"text\": \"\`${{ github.event.inputs.program | replace('-', '\\\\-') }}\`编译成功，版本：${{ github.event.inputs.version | replace('.', '\\\\.') }}\`\",
+          \"text\": \"\`${project_program//-/\\\\-}\`编译成功，版本：${project_version//./\\\\.}\`\",
           \"parse_mode\": \"MarkdownV2\"
           }"
 
