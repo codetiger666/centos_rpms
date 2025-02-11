@@ -207,7 +207,7 @@ jobs:
           --header 'Content-Type: application/json' \
           --data "{
           \"chat_id\": \"${{ secrets.TG_BOT_USER_ID }}\",
-          \"text\": \"\`${project_program//-/\\\\-}\`编译成功，版本：${project_version//./\\\\.}\`\",
+          \"text\": \"\`${project_program//-/\\\\-}\`编译成功，版本\`${project_version//./\\\\.}\`\",
           \"parse_mode\": \"MarkdownV2\"
           }"
 
