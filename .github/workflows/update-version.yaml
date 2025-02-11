@@ -32,6 +32,7 @@ jobs:
               continue
             fi
             new_version=$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+            temp_version=$new_version
             if [ -e "init/${program}.sh" ]; then
               new_version=$(. init/${program}.sh $new_version)
             fi            
@@ -53,7 +54,7 @@ jobs:
                         [
                                 {
                                     \"text\": \"${program} $new_version更新日志\",
-                                    \"url\": \"https://github.com/$repo/releases/tag/v$new_version\"
+                                    \"url\": \"https://github.com/$repo/releases/tag/$temp_version\"
                                 }
                         ]
                     ]
@@ -99,7 +100,7 @@ jobs:
                       [
                               {
                                   \"text\": \"${program}$new_version更新日志\",
-                                  \"url\": \"https://github.com/$repo/releases/tag/v$new_version\"
+                                  \"url\": \"https://github.com/$repo/releases/tag/$temp_version\"
                               }
                       ]
                   ]
