@@ -32,9 +32,34 @@ jobs:
               continue
             fi
             new_version=$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+            if [ -e "init/${program}.sh" ]; then
+              new_version=$(. init/${program}.sh $new_version)
+            fi            
             echo "$program获取到的最新版本${new_version}"
             if [ "$version" = "$new_version" ]; then
                 echo "$program最新版本已经编译过"
+                curl -X POST \
+                --url https://api.telegram.org/bot${{ secrets.TG_BOT_KEY }}/sendMessage \
+                --header 'Accept: */*' \
+                --header 'Accept-Encoding: gzip, deflate, br' \
+                --header 'Connection: keep-alive' \
+                --header 'Content-Type: application/json' \
+                --data "{
+                \"chat_id\": \"${{ secrets.TG_BOT_USER_ID }}\",
+                \"text\": \"\`${program//-/\\\\-}版本:${new_version//./\\\\.}已经编译完成\`\",
+                \"parse_mode\": \"MarkdownV2\",
+                \"reply_markup\": {
+                    \"inline_keyboard\": [
+                        [
+                                {
+                                    \"text\": \"${program} $new_version更新日志\",
+                                    \"url\": \"https://github.com/$repo/releases/tag/v$new_version\"
+                                }
+                        ]
+                    ]
+                }
+                }"
+                sleep 60
                 continue
             else
               run_workflow=$(curl https://api.github.com/repos/codetiger666/rpms/actions/runs | jq '.workflow_runs[] | select(.name == "release")' | jq 'select(.status == "queued" or .status == "in_progress")')
@@ -44,7 +69,7 @@ jobs:
                   break
                 fi
                 echo "当前有编译任务进行中，等到5s后重试"
-                sleep 5
+                sleep 30
                 run_workflow=$(curl https://api.github.com/repos/codetiger666/rpms/actions/runs | jq '.workflow_runs[] | select(.name == "release")' | jq 'select(.status == "queued" or .status == "in_progress")')
               done
               # 替换版本
@@ -73,7 +98,7 @@ jobs:
                   \"inline_keyboard\": [
                       [
                               {
-                                  \"text\": \"$new_version更新日志\",
+                                  \"text\": \"${program}$new_version更新日志\",
                                   \"url\": \"https://github.com/$repo/releases/tag/v$new_version\"
                               }
                       ]

@@ -1,7 +1,9 @@
 openresty=1.25.3.2=openresty/openresty
 nezha-agent=1.7.3=nezhahq/agent
 onedrive=2.5.4=abraunegg/onedrive
+openssh-server=9.9p1=openssh/openssh-portable
 frp=0.61.1=fatedier/frp
 gitea=1.23.3=go-gitea/gitea
 alist=3.42.0=AlistGo/alist
 vaultwarden=1.33.2=dani-garcia/vaultwarden
+hysteria=2.6.0=apernet/hysteria
