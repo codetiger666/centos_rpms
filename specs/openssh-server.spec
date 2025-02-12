@@ -87,7 +87,6 @@ fi
 %{_usr}/bin/ssh-agent
 %{_usr}/bin/ssh-keygen
 %{_usr}/bin/ssh-keyscan
-#%{_usr}/local/ssh/openssl/
 %{_usr}/lib/systemd/system/sshd.service
 %{_usr}/libexec/sftp-server
 %{_usr}/libexec/ssh-keysign
