@@ -1,4 +1,4 @@
-OPENSSL_VERSION=3.4.0
+OPENSSL_VERSION=3.4.1
 
 program_init(){
   # docker exec -i $centos dnf install -y zlib-devel libselinux-devel openssl-devel-$OPENSSL_VERSION
