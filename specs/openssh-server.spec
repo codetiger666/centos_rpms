@@ -36,14 +36,13 @@ make -j6 && make install
 
 # 编译
 %build
+LDFLAGS="-L/usr/local/ssh/openssl/lib64 -L/usr/local/ssh/openssl/lib --static" && \
+CFLAGS="-I/usr/local/ssh/openssl/include" && \
 ./configure \
   --prefix=/usr \
   --sysconfdir=/etc/ssh \
   --with-ssl-dir=/usr/local/ssh/openssl \
-  --with-selinux \
-  LDFLAGS="-L/usr/local/ssh/openssl/lib64 \
-           -L/usr/local/ssh/openssl/lib --static" \
-  CFLAGS="-I/usr/local/ssh/openssl/include"
+  --with-selinux
 make -j6
 
 # 安装
