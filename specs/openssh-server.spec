@@ -29,26 +29,32 @@ cp %{SOURCE3} %{_builddir}
 cd %{_builddir}
 tar -xf %{SOURCE3}
 cd openssl-codetiger_openssl_version
-./config --prefix=/usr/local/ssh/openssl --openssldir=/usr/local/ssh/openssl
+./config no-shared --prefix=/usr/local/ssh/openssl --openssldir=/usr/local/ssh/openssl
 make -j6 && make install
-echo -e "/usr/local/ssh/openssl/lib64\n/usr/local/ssh/openssl/lib" > /etc/ld.so.conf.d/opensslcodetiger_openssl_version.conf
-/sbin/ldconfig
+#echo -e "/usr/local/ssh/openssl/lib64\n/usr/local/ssh/openssl/lib" > /etc/ld.so.conf.d/opensslcodetiger_openssl_version.conf
+#/sbin/ldconfig
 
 # 编译
 %build
-./configure --prefix=/usr --sysconfdir=/etc/ssh --with-ssl-dir=/usr/local/ssh/openssl --with-selinux
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc/ssh \
+  --with-ssl-dir=/usr/local/ssh/openssl \
+  --with-selinux \
+  LDFLAGS="-L/usr/local/ssh/openssl/lib64 -static" \
+  CFLAGS="-I/usr/local/ssh/openssl/include"
 make -j6
 
 # 安装
 %install
 make install DESTDIR=%{buildroot}
 rm -rf %{buildroot}/etc/ssh/sshd_config
-mkdir -p %{buildroot}/usr/local/ssh
-/bin/cp -r /usr/local/ssh/openssl %{buildroot}/usr/local/ssh/openssl
+#mkdir -p %{buildroot}/usr/local/ssh
+#/bin/cp -r /usr/local/ssh/openssl %{buildroot}/usr/local/ssh/openssl
 %{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/sshd.service
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}/etc/ssh/sshd_config
-rm -rf /etc/ld.so.conf.d/opensslcodetiger_openssl_version.conf
-/sbin/ldconfig
+#rm -rf /etc/ld.so.conf.d/opensslcodetiger_openssl_version.conf
+#/sbin/ldconfig
 
 # 安装后操作
 %post
@@ -80,7 +86,7 @@ fi
 %{_usr}/bin/ssh-agent
 %{_usr}/bin/ssh-keygen
 %{_usr}/bin/ssh-keyscan
-%{_usr}/local/ssh/openssl/
+#%{_usr}/local/ssh/openssl/
 %{_usr}/lib/systemd/system/sshd.service
 %{_usr}/libexec/sftp-server
 %{_usr}/libexec/ssh-keysign
