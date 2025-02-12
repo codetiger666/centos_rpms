@@ -41,7 +41,8 @@ make -j6 && make install
   --sysconfdir=/etc/ssh \
   --with-ssl-dir=/usr/local/ssh/openssl \
   --with-selinux \
-  LDFLAGS="-L/usr/local/ssh/openssl/lib64 -static" \
+  LDFLAGS="-L/usr/local/ssh/openssl/lib64 \
+           -L/usr/local/ssh/openssl/lib -static" \
   CFLAGS="-I/usr/local/ssh/openssl/include"
 make -j6
 
