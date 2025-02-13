@@ -18,12 +18,12 @@ Requires: openssl-libs = %{epoch}:%{version}
 # 描述
 %description
 openssl编译
-# 子包openssl-libs定义
 
+# 子包openssl-libs定义
 %package -n openssl-libs
 Summary:      openssl-libs
 
-%description
+%description -n openssl-libs
 openssl-libs编译
 
 # 子包openssl-devel定义
@@ -31,7 +31,7 @@ openssl-libs编译
 Summary:      openssl-devel
 Requires: openssl = %{epoch}:%{version}
 
-%description
+%description -n openssl-devel
 openssl-devel编译
 
 %prep
