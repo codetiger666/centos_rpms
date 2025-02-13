@@ -10,7 +10,7 @@ on:
             - openresty
             - nezha-agent
             - onedrive
-            - openssh-server
+            - openssh
             - frp
             - gitea
             - alist

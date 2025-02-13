@@ -1,9 +1,9 @@
 # 自定义clients名称
 %define client_name openssh-clients
-Name:           openssh-server
+Name:           openssh
 Version:        codetiger_version
 Release:        1%{?dist}
-Summary:        openssh-server编译
+Summary:        openssh编译
 
 License:        GPL
 URL:            https://gybyt.cn
@@ -12,15 +12,27 @@ Source1:        sshd.service
 Source2:        sshd_config
 Source3:        https://github.com/openssl/openssl/releases/download/openssl-codetiger_openssl_version/openssl-codetiger_openssl_version.tar.gz
 
-# 别名 用来代替openssh openssh-clients
-Provides: openssh-%{version}
-Provides: %{client_name} = %{version}
-
 BuildRequires:  zlib-devel gcc libselinux-devel
 Requires: zlib libselinux
 
 # 描述
 %description
+openssh编译
+
+# 子包openssh-client定义
+%package -n openssh-client
+Summary:      openssh-client
+
+# 描述
+%description -n openssh-client
+openssh-client编译
+
+# 子包openssh-server定义
+%package -n openssh-server
+Summary:      openssh-server
+
+# 描述
+%description -n openssh-server
 openssh-server编译
 
 %prep
@@ -79,13 +91,13 @@ fi
 %files
 %defattr(-,root,root,0755)
 /etc/ssh/moduli
-%{_usr}/bin/scp
-%{_usr}/bin/sftp
-%{_usr}/bin/ssh
-%{_usr}/bin/ssh-add
-%{_usr}/bin/ssh-agent
 %{_usr}/bin/ssh-keygen
-%{_usr}/bin/ssh-keyscan
+%{_usr}/share/man/man1/ssh-keygen.1.gz
+%{_usr}/share/man/man5/moduli.5.gz
+
+
+# 子包openssh-server文件列表
+%files -n openssl-server
 %{_usr}/lib/systemd/system/sshd.service
 %{_usr}/libexec/sftp-server
 %{_usr}/libexec/ssh-keysign
@@ -93,23 +105,31 @@ fi
 %{_usr}/libexec/ssh-sk-helper
 %{_usr}/libexec/sshd-session
 %{_usr}/sbin/sshd
-%{_usr}/share/man/man1/scp.1.gz
-%{_usr}/share/man/man1/sftp.1.gz
-%{_usr}/share/man/man1/ssh-add.1.gz
-%{_usr}/share/man/man1/ssh-agent.1.gz
-%{_usr}/share/man/man1/ssh-keygen.1.gz
-%{_usr}/share/man/man1/ssh-keyscan.1.gz
-%{_usr}/share/man/man1/ssh.1.gz
-%{_usr}/share/man/man5/moduli.5.gz
-%{_usr}/share/man/man5/ssh_config.5.gz
 %{_usr}/share/man/man5/sshd_config.5.gz
 %{_usr}/share/man/man8/sftp-server.8.gz
 %{_usr}/share/man/man8/ssh-keysign.8.gz
 %{_usr}/share/man/man8/ssh-pkcs11-helper.8.gz
 %{_usr}/share/man/man8/ssh-sk-helper.8.gz
 %{_usr}/share/man/man8/sshd.8.gz
-%config(noreplace) /etc/ssh/ssh_config
 %config(noreplace) /etc/ssh/sshd_config
+
+# 子包openssh文件列表
+%files -n openssl-client
+%{_usr}/bin/scp
+%{_usr}/bin/sftp
+%{_usr}/bin/ssh
+%{_usr}/bin/ssh-add
+%{_usr}/bin/ssh-agent
+%{_usr}/bin/ssh-keyscan
+%config(noreplace) /etc/ssh/ssh_config
+%{_usr}/share/man/man1/scp.1.gz
+%{_usr}/share/man/man1/sftp.1.gz
+%{_usr}/share/man/man1/ssh-add.1.gz
+%{_usr}/share/man/man1/ssh-agent.1.gz
+%{_usr}/share/man/man1/ssh-keyscan.1.gz
+%{_usr}/share/man/man1/ssh.1.gz
+%{_usr}/share/man/man5/ssh_config.5.gz
+
 # 文档
 %doc
 
