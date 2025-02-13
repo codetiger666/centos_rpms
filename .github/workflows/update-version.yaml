@@ -31,8 +31,9 @@ jobs:
               # 如果任意一个变量为空，跳过当前循环迭代
               continue
             fi
-            new_version=$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+            new_version=$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r '.tag_name')
             temp_version=$new_version
+            new_version=$(echo $new_version  | sed 's/^v//')
             if [ -e "init/${program}.sh" ]; then
               new_version=$(. init/${program}.sh $new_version)
             fi            
