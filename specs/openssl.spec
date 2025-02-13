@@ -33,8 +33,8 @@ make -j6
 # 安装
 %install
 make install DESTDIR=%{buildroot}
-rm -rf %{buildroot}/usr/local/share/man
-rm -rf %{buildroot}/usr/local/share/doc
+rm -rf %{buildroot}/usr/share/man
+rm -rf %{buildroot}/usr/share/doc
 
 # 文件列表
 %files
