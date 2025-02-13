@@ -4,7 +4,6 @@ After=network.target
 
 [Service]
 Type=notify
-Environment=LD_LIBRARY_PATH=/usr/local/ssh/openssl/lib64:/usr/local/ssh/openssl/lib
 ExecStart=/usr/sbin/sshd -D $OPTIONS
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
