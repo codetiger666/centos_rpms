@@ -17,6 +17,7 @@ on:
             - git
             - vaultwarden
             - hysteria
+            - openssl
         version:
           description: '软件版本'
           required: true
