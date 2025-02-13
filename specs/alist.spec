@@ -56,8 +56,8 @@ fi
 %files
 %{_usr}/local/alist/alist
 %{_usr}/local/alist/alist.sh
-%{_usr}/local/alist/config
-%{_usr}/local/alist/data/config.json
+%config(noreplace) %{_usr}/local/alist/config
+%config(noreplace) %{_usr}/local/alist/data/config.json
 %{_usr}/lib/systemd/system/alist.service
 %doc
 
