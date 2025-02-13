@@ -2,7 +2,7 @@
 %define devel openssl-devel
 %define libs openssl-libs
 Name:           openssl
-Version:        codetiger_version
+Version:        1:codetiger_version
 Release:        1%{?dist}
 Summary:        openssl编译
 
