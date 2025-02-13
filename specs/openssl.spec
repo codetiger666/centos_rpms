@@ -32,6 +32,7 @@ make -j6
 # 安装
 %install
 make install DESTDIR=%{buildroot}
+rm -rf %{buildroot}/usr/local/share/man
 
 # 文件列表
 %files
