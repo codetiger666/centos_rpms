@@ -140,7 +140,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: ${{ github.event.inputs.program }}-${{ matrix.arch }}
-          path: rpm/rpmbuild/RPMS/${{ matrix.arch }}/${{ github.event.inputs.program }}-${{ github.event.inputs.version }}-1.el9.${{ matrix.arch }}.rpm
+          path: rpm/rpmbuild/RPMS/${{ matrix.arch }}/${{ github.event.inputs.program }}*-${{ github.event.inputs.version }}-*.el9.${{ matrix.arch }}.rpm
 
   upload:
     name: update-rpms-${{ github.event.inputs.program }}
