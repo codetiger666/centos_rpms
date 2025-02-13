@@ -1,10 +1,10 @@
 # 自定义clients名称
 %define devel openssl-devel
 %define libs openssl-libs
-Name:           openssh-server
+Name:           openssl
 Version:        codetiger_version
 Release:        1%{?dist}
-Summary:        openssh-server编译
+Summary:        openssl编译
 
 License:        GPL
 URL:            https://gybyt.cn
@@ -15,7 +15,7 @@ Provides: %{libs} = %{version}
 Provides: %{devel} = %{version}
 
 BuildRequires:  zlib-devel gcc
-Requires: zlib libselinux
+Requires: zlib
 
 # 描述
 %description
