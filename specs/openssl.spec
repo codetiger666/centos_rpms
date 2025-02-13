@@ -11,12 +11,18 @@ License:        GPL
 URL:            https://gybyt.cn
 Source0:        https://github.com/openssl/openssl/releases/download/openssl-codetiger_version/openssl-codetiger_version.tar.gz
 
-# 别名 用来代替openssl-devel openssl-devel
-Provides: %{libs} = %{version}
-Provides: %{devel} = %{version}
-
 BuildRequires:  zlib-devel gcc
 Requires: zlib
+Requires: openssl-libs = %{epoch}:%{version}
+
+# 子包openssl-libs定义
+%package -n openssl-libs
+Summary:      openssl-libs
+
+# 子包openssl-devel定义
+%package -n openssl-devel
+Summary:      openssl-devel
+Requires: openssl = %{epoch}:%{version}
 
 # 描述
 %description
@@ -35,11 +41,16 @@ make -j6
 make install DESTDIR=%{buildroot}
 rm -rf %{buildroot}/usr/share/man
 rm -rf %{buildroot}/usr/share/doc
+rm -rf %{buildroot}/etc/ssl
 
 # 文件列表
 %files
 %defattr(-,root,root,0755)
-%{_usr}/include/openssl/
+%{_usr}/bin/c_rehash
+%{_usr}/bin/openssl
+
+# 子包openssl-libs文件列表
+%files -n openssl-libs
 %{_usr}/lib64/engines-3/afalg.so
 %{_usr}/lib64/engines-3/capi.so
 %{_usr}/lib64/engines-3/loader_attic.so
@@ -51,18 +62,13 @@ rm -rf %{buildroot}/usr/share/doc
 %{_usr}/lib64/libssl.so
 %{_usr}/lib64/libssl.so.3
 %{_usr}/lib64/ossl-modules/legacy.so
+
+# 子包openssl-devel文件列表
+%files -n openssl-devel
+%{_usr}/include/openssl/
 %{_usr}/lib64/pkgconfig/libcrypto.pc
 %{_usr}/lib64/pkgconfig/libssl.pc
 %{_usr}/lib64/pkgconfig/openssl.pc
-%{_usr}/bin/c_rehash
-%{_usr}/bin/openssl
-/etc/ssl/ct_log_list.cnf
-/etc/ssl/ct_log_list.cnf.dist
-/etc/ssl/misc/CA.pl
-/etc/ssl/misc/tsget
-/etc/ssl/misc/tsget.pl
-/etc/ssl/openssl.cnf
-/etc/ssl/openssl.cnf.dist
 
 # 文档
 %doc
