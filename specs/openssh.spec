@@ -22,6 +22,7 @@ openssh编译
 # 子包openssh-client定义
 %package -n openssh-client
 Summary:      openssh-client
+Requires: openssh = %{version}
 
 # 描述
 %description -n openssh-client
@@ -30,6 +31,7 @@ openssh-client编译
 # 子包openssh-server定义
 %package -n openssh-server
 Summary:      openssh-server
+Requires: openssh-client = %{version}
 
 # 描述
 %description -n openssh-server
@@ -69,7 +71,7 @@ rm -rf %{buildroot}/etc/ssh/sshd_config
 #/sbin/ldconfig
 
 # 安装后操作
-%post
+%post -n openssh-server
 if [ $1 == 1 ]; then
     if [ -e /etc/ssh/ssh_host_rsa_key ]; then
         chmod 0600 /etc/ssh/ssh_host_*_key
@@ -80,7 +82,7 @@ if [ $1 == 1 ]; then
 fi
 
 # 卸载前准备
-%preun
+%preun -n openssh-server
 if [ $1 == 0 ]; then
     if [ -f /usr/lib/systemd/system/sshd.service ]; then
     %systemd_preun sshd.service
@@ -97,7 +99,7 @@ fi
 
 
 # 子包openssh-server文件列表
-%files -n openssl-server
+%files -n openssh-server
 %{_usr}/lib/systemd/system/sshd.service
 %{_usr}/libexec/sftp-server
 %{_usr}/libexec/ssh-keysign
@@ -113,7 +115,7 @@ fi
 %{_usr}/share/man/man8/sshd.8.gz
 %config(noreplace) /etc/ssh/sshd_config
 
-# 子包openssh文件列表
+# 子包openssh-client文件列表
 %files -n openssl-client
 %{_usr}/bin/scp
 %{_usr}/bin/sftp
