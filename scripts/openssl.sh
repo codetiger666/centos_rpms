@@ -1,4 +1,5 @@
 program_init(){
+  docker exec -i $centos dnf install -y lksctp-tools-devel
   sudo sed -i "s/codetiger_version/${project_version}/g" specs/openssl.spec
   ARCH=amd64
   if [ "${project_arch}" = "x86_64" ]; then
