@@ -55,6 +55,15 @@ rm -rf %{buildroot}/usr/local/share/doc
 %{_usr}/local/lib/pkgconfig/libcrypto.pc
 %{_usr}/local/lib/pkgconfig/libssl.pc
 %{_usr}/local/lib/pkgconfig/openssl.pc
+%{_usr}/local/bin/c_rehash
+%{_usr}/local/bin/openssl
+%{_usr}/local/ssl/ct_log_list.cnf
+%{_usr}/local/ssl/ct_log_list.cnf.dist
+%{_usr}/local/ssl/misc/CA.pl
+%{_usr}/local/ssl/misc/tsget
+%{_usr}/local/ssl/misc/tsget.pl
+%{_usr}/local/ssl/openssl.cnf
+%{_usr}/local/ssl/openssl.cnf.dist
 
 # 文档
 %doc
