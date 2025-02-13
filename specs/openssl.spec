@@ -39,8 +39,6 @@ rm -rf %{buildroot}/usr/local/share/doc
 %files
 %defattr(-,root,root,0755)
 %{_usr}/local/include/openssl/
-%{_usr}/local/codetiger_lib/cmake/OpenSSL/OpenSSLConfig.cmake
-%{_usr}/local/codetiger_lib/cmake/OpenSSL/OpenSSLConfigVersion.cmake
 %{_usr}/local/codetiger_lib/engines-3/afalg.so
 %{_usr}/local/codetiger_lib/engines-3/capi.so
 %{_usr}/local/codetiger_lib/engines-3/loader_attic.so
