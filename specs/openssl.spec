@@ -27,7 +27,7 @@ openssl编译
 
 # 编译
 %build
-./config shared zlib
+./config shared zlib --prefix=/usr  --openssldir=/etc/ssl -Wl,-rpath=/usr/lib64
 make -j6
 
 # 安装
