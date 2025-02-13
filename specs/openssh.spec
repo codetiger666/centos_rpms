@@ -7,7 +7,7 @@ Summary:        openssh编译
 
 License:        GPL
 URL:            https://gybyt.cn
-Source0:        https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-server-%{version}.tar.gz
+Source0:        https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1:        sshd.service
 Source2:        sshd_config
 Source3:        https://github.com/openssl/openssl/releases/download/openssl-codetiger_openssl_version/openssl-codetiger_openssl_version.tar.gz
