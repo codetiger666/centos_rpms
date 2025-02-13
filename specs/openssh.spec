@@ -116,7 +116,7 @@ fi
 %config(noreplace) /etc/ssh/sshd_config
 
 # 子包openssh-client文件列表
-%files -n openssl-client
+%files -n openssh-client
 %{_usr}/bin/scp
 %{_usr}/bin/sftp
 %{_usr}/bin/ssh
