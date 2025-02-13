@@ -10,8 +10,7 @@ program_init(){
   wget https://github.com/AlistGo/alist/releases/download/v${project_version}/alist-linux-${ARCH}.tar.gz
   sudo /bin/cp specs/alist.spec rpm/rpmbuild/SPECS/alist.spec
   sudo sed -i "s/codetiger_arch/${ARCH}/g" specs/alist.spec
-  tar -xf alist-linux-${ARCH}.tar.gz
-  mv alist-linux-${ARCH} alist-${project_version}
+  tar -xf alist-linux-${ARCH}.tar.gz -C alist-${project_version}
   tar -zcvf alist-${project_version}.tar.gz alist-${project_version}
   sudo /bin/cp alist-${project_version}.tar.gz rpm/rpmbuild/SOURCES
   mkdir rpm/rpmbuild/SOURCES -p
