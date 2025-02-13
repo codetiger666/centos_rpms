@@ -1,0 +1,33 @@
+debug: false
+realipheader: nz-realip
+language: zh_CN
+sitename: 哪吒监控
+usertemplate: user-dist
+admintemplate: admin-dist
+jwtsecretkey: 
+agentsecretkey: 
+listenport: 20501
+listenhost: ""
+installhost: 
+tls: true
+location: Asia/Shanghai
+enableplainipinnotification: true
+enableipchangenotification: false
+ipchangenotificationgroupid: 0
+cover: 1
+ignoredipnotification: ""
+ignoredipnotificationserverids: {}
+avgpingcount: 2
+dnsservers: ""
+customcode: ""
+customcodedashboard: ""
+oauth2:
+    GitHub:
+        clientid: 
+        clientsecret: 
+        endpoint:
+            authurl: https://github.com/login/oauth/authorize
+            tokenurl: https://github.com/login/oauth/access_token
+        scopes: []
+        userinfourl: https://api.github.com/user
+        useridpath: login

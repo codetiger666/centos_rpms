@@ -9,6 +9,7 @@ on:
           options:
             - openresty
             - nezha-agent
+            - nezha-server
             - onedrive
             - openssh
             - frp
