@@ -23,7 +23,7 @@ tar -xf %{SOURCE0}
 # 安装
 %install
 %{__mkdir} -p %{buildroot}/usr/local/alist/data
-cp %{name}-%{version}/alist %{buildroot}/usr/local/alist/alist
+cp alist %{buildroot}/usr/local/alist/alist
 %{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}%{_usr}/lib/systemd/system/alist.service
 %{__install} -p -D -m 0755 %{SOURCE2} %{buildroot}/usr/local/alist/alist.sh
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}/usr/local/alist/config
