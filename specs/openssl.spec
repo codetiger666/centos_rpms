@@ -11,8 +11,8 @@ License:        GPL
 URL:            https://gybyt.cn
 Source0:        https://github.com/openssl/openssl/releases/download/openssl-codetiger_version/openssl-codetiger_version.tar.gz
 
-BuildRequires:  zlib-devel gcc
-Requires: zlib
+BuildRequires:  zlib-devel gcc lksctp-tools-devel
+Requires: zlib lksctp-tools
 Requires: openssl-libs = %{epoch}:%{version}
 
 # 描述
@@ -83,6 +83,7 @@ rm -rf %{buildroot}/etc/ssl
 %{_usr}/lib64/libssl.a
 %{_usr}/lib64/libssl.so
 %{_usr}/lib64/libssl.so.3
+%{_usr}/lib64/ossl-modules/fips.so
 %{_usr}/lib64/ossl-modules/legacy.so
 
 # 子包openssl-devel文件列表
