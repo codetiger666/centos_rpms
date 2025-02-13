@@ -20,18 +20,18 @@ Requires: zlib libselinux
 openssh编译
 
 # 子包openssh-client定义
-%package -n openssh-client
-Summary:      openssh-client
+%package -n openssh-clients
+Summary:      openssh-clients
 Requires: openssh = %{version}
 
 # 描述
-%description -n openssh-client
-openssh-client编译
+%description -n openssh-clients
+openssh-clients编译
 
 # 子包openssh-server定义
 %package -n openssh-server
 Summary:      openssh-server
-Requires: openssh-client = %{version}
+Requires: openssh-clients = %{version}
 
 # 描述
 %description -n openssh-server
@@ -116,7 +116,7 @@ fi
 %config(noreplace) /etc/ssh/sshd_config
 
 # 子包openssh-client文件列表
-%files -n openssh-client
+%files -n openssh-clients
 %{_usr}/bin/scp
 %{_usr}/bin/sftp
 %{_usr}/bin/ssh
