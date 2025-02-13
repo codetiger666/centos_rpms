@@ -39,7 +39,23 @@ openssl-devel编译
 
 # 编译
 %build
-./config shared zlib --prefix=/usr  --openssldir=/etc/ssl --libdir=/usr/lib64
+./config --prefix=/usr  \
+  --openssldir=/etc/ssl \
+  --libdir=/usr/lib64 \
+  shared \
+  zlib \
+  enable-camellia \
+  enable-seed \
+  enable-rfc3779 \
+  enable-sctp \
+  enable-cms \
+  enable-md2 \
+  enable-rc5 \
+  ${ktlsopt} \
+  enable-fips \
+  no-mdc2 \
+  no-ec2m \
+  no-atexit
 make -j6
 
 # 安装
