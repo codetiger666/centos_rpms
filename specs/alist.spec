@@ -5,7 +5,7 @@ Summary:        alist网盘
 
 License:        GPL
 URL:            https://gybyt.cn
-Source0:        https://github.com/AlistGo/alist/releases/download/v%{version}/alist-%{version}.tar.gz
+Source0:        https://github.com/AlistGo/alist/releases/download/v%{version}/alist-linux-codetiger_arch.tar.gz
 Source1:        alist.service
 Source2:        alist.sh
 Source3:        config
@@ -15,7 +15,9 @@ Source4:        config.json
 
 # 编译前准备
 %prep
-%setup -q
+rm -rf %{_builddir}/*
+cp %{SOURCE0} %{_builddir}
+tar -xf %{SOURCE0}
 
 
 # 安装
