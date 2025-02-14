@@ -28,8 +28,8 @@ Source5:        hysteria.service
 # 安装后操作
 %post
 if [ $1 == 1 ]; then
-    useradd -u 3000 -o hysteria || true
-    chown -R hysteria:3000 /usr/local/hysteria
+    useradd hysteria -s /sbin/nologin || true
+    chown -R hysteria:hysteria /usr/local/hysteria
 fi
 
 # 卸载前准备
@@ -44,6 +44,7 @@ fi
 %postun
 if [ $1 == 0 ]; then
     userdel hysteria || true
+    groupdel hysteria || true
 fi
 
 # 文件列表

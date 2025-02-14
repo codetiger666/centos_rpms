@@ -37,11 +37,7 @@ make install DESTDIR=%{buildroot}
 # 安装前准备
 %pre
 if [ $1 == 1 ]; then
-    id nginx &> /dev/null
-    if [ $? -ne 0 ]
-    then
-    /usr/sbin/useradd -r nginx -s /sbin/nologin 2> /dev/null
-    fi
+   useradd nginx -s /sbin/nologin 2> /dev/null
 fi
 
 # 安装后操作
@@ -67,11 +63,6 @@ if [ $1 == 0 ]; then
     if [ -f /usr/lib/systemd/system/nginx.service ]; then
     %systemd_preun nginx.service
     fi
-    %endif
-    count=`ps -ef |grep nginx |grep -v "grep" |wc -l`
-    if [ $count -gt 0 ]; then
-    nginx -s stop
-    fi
 fi
 
 # 卸载后步骤
@@ -82,8 +73,8 @@ if [ $1 == 0 ]; then
     rm -rf /usr/lib/systemd/system/nginx.service
     rm -rf /var/tmp/nginx
     rm -rf /var/log/nginx
-    userdel nginx 2> /dev/null
-    groupadd nginx 2> /dev/null
+    userdel nginx || true
+    groupdel nginx || true
 fi
 
 # 文件列表

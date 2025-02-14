@@ -26,7 +26,9 @@ Requires:       git openssh-server
 # 安装后操作
 %post
 if [ $1 == 1 ]; then
-    chown -R 3000:3000 /usr/local/gitea
+    groupadd -g 3000 -o gitea || true
+    useradd -u 3000 -o gitea -s /sbin/nologin || true
+    chown -R gitea:gitea /usr/local/gitea
 fi
 
 # 卸载前准备
@@ -35,6 +37,13 @@ if [ $1 == 0 ]; then
     if [ -f /usr/lib/systemd/system/gitea.service ]; then
     %systemd_preun gitea.service
     fi
+fi
+
+# 卸载后步骤
+%postun
+if [ $1 == 0 ]; then
+    userdel gitea || true
+    groupdel gitea || true
 fi
 
 # 文件列表

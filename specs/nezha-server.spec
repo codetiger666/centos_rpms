@@ -31,14 +31,15 @@ chmod +x %{buildroot}/etc/nezha/nezha-server
 # 安装后操作
 %post
 if [ $1 == 1 ]; then
+    groupadd -g 3000 -o nezha || true
     useradd -u 3000 -o nezha || true
-    chown -R hysteria:3000 /etc/nezha
+    chown -R nezha:nezha /etc/nezha
 fi
 
 # 卸载前准备
 %preun
 if [ $1 == 0 ]; then
-    if [ -f /usr/lib/systemd/system/nezha-agent.service ]; then
+    if [ -f /usr/lib/systemd/system/nezha-server.service ]; then
     %systemd_preun nezha-server.service
     fi
 fi
@@ -47,6 +48,7 @@ fi
 %postun
 if [ $1 == 0 ]; then
     userdel nezha || true
+    groupdel nezha || true
 fi
 
 # 文件列表

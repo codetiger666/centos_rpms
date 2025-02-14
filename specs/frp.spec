@@ -27,12 +27,26 @@ cp %{name}-%{version}/frps* %{buildroot}/usr/local/frp
 %{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}%{_usr}/lib/systemd/system/frpc.service
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{_usr}/lib/systemd/system/frps.service
 
+# 安装后操作
+%post
+if [ $1 == 1 ]; then
+    useradd frp -s /sbin/nologin || true
+    chown -R alist:alist /usr/local/frp
+fi
+
 # 卸载前准备
 %preun
 if [ $1 == 0 ]; then
     if [ -f /usr/lib/systemd/system/frp.service ]; then
     %systemd_preun frp.service
     fi
+fi
+
+# 卸载后步骤
+%postun
+if [ $1 == 0 ]; then
+    userdel frp || true
+    groupdel frp || true
 fi
 
 # 文件列表

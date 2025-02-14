@@ -33,8 +33,9 @@ cp alist %{buildroot}/usr/local/alist/alist
 # 安装后操作
 %post
 if [ $1 == 1 ]; then
-    useradd -u 3000 -o alist || true
-    chown -R alist:3000 /usr/local/alist
+    groupadd -g 3000 -o alist || true
+    useradd -u 3000 -o alist -s /sbin/nologin || true
+    chown -R alist:alist /usr/local/alist
 fi
 
 # 卸载前准备
@@ -48,8 +49,8 @@ fi
 # 卸载后步骤
 %postun
 if [ $1 == 0 ]; then
-    userdel alist 2> /dev/null
-    groupdel alist 2> /dev/null
+    userdel alist || true
+    groupdel alist || true
 fi
 
 # 文件列表

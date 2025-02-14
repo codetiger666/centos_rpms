@@ -18,14 +18,11 @@ rm -rf %{_builddir}/*
 cp %{SOURCE0} %{_builddir}
 unzip -d %{name}-%{version} %{SOURCE0}
 
-# 安装前准备
-%pre
+# 安装后操作
+%post
 if [ $1 == 1 ]; then
-    id nezha &> /dev/null
-    if [ $? -ne 0 ]
-    then
-    useradd nezha -s /sbin/nologin 2> /dev/null
-    fi
+    useradd nezha-agent -s /sbin/nologin || true
+    chown -R nezha-agent:nezha-agent /usr/local/nezha
 fi
 
 # 安装
@@ -36,11 +33,6 @@ cp %{name}-%{version}/nezha-agent %{buildroot}/usr/local/nezha/nezha-agent
 %{__install} -p -D -m 0755 %{SOURCE2} %{buildroot}/usr/local/nezha/nezha-agent.sh
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}/usr/local/nezha/agent.conf
 
-# 安装后操作
-%post
-if [ $1 == 1 ]; then
-    chown -R nezha:nezha /usr/local/nezha
-fi
 
 # 卸载前准备
 %preun
@@ -53,8 +45,8 @@ fi
 # 卸载后步骤
 %postun
 if [ $1 == 0 ]; then
-    groupdel nezha 2> /dev/null
-    userdel nezha 2> /dev/null
+    userdel nezha-agent || true
+    groupdel nezha-agent || true
 fi
 
 # 文件列表
