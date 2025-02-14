@@ -8,5 +8,6 @@ program_init(){
   sudo /bin/cp onedrive-${project_version}.tar.gz rpm/rpmbuild/SOURCES/onedrive-${project_version}.tar.gz
   sudo /bin/cp onedrive/config rpm/rpmbuild/SOURCES
   sudo /bin/cp onedrive/onedrive.sh rpm/rpmbuild/SOURCES
+  sudo /bin/cp onedrive/sync_list rpm/rpmbuild/SOURCES
   sudo /bin/cp services/onedrive.service rpm/rpmbuild/SOURCES
 }
