@@ -9,7 +9,7 @@ Source0:        https://github.com/abraunegg/onedrive/archive/refs/tags/%{name}-
 Source1:        onedrive.service
 Source2:        config
 Source3:        onedrive.sh
-Source3:        sync_list
+Source4:        sync_list
 
 BuildRequires:  sqlite-devel     
 
