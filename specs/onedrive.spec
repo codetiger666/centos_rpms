@@ -22,7 +22,7 @@ onedrive编译
 
 # 编译
 %build
-CFLAGS="-fPIC" ./configure  --bin-path=/usr/bin/onedrive
+CFLAGS="-fPIC" ./configure  --bindir=/usr/bin
 make -j6
 
 # 安装
