@@ -8,7 +8,7 @@ URL:            https://gybyt.cn
 Source0:        https://github.com/abraunegg/onedrive/archive/refs/tags/%{name}-%{version}.tar.gz
 Source1:        onedrive.service
 Source2:        config
-Source3:        onedrive
+Source3:        onedrive.sh
 
 BuildRequires:  sqlite-devel     
 
@@ -22,7 +22,7 @@ onedrive编译
 
 # 编译
 %build
-CFLAGS="-fPIC" ./configure
+CFLAGS="-fPIC" ./configure  --bin-path=/usr/bin/onedrive
 make -j6
 
 # 安装
@@ -33,7 +33,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/onedrive@.service
 rm -rf %{buildroot}/usr/lib/systemd/user/onedrive.service
 %{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/onedrive.service
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}/usr/local/onedrive/conf/config
-%{__install} -p -D -m 0755 %{SOURCE3} %{buildroot}/usr/local/onedrive/onedrive
+%{__install} -p -D -m 0755 %{SOURCE3} %{buildroot}/usr/local/onedrive/onedrive.sh
 
 # 安装后操作
 %post
@@ -61,10 +61,10 @@ fi
 # 文件列表
 %files
 %defattr(-,root,root,0755)
-%{_usr}/local/bin/onedrive
+%{_usr}/bin/onedrive
 %{_usr}/local/etc/logrotate.d/onedrive
 %{_usr}/lib/systemd/system/onedrive.service
-%{_usr}/local/onedrive/onedrive
+%{_usr}/local/onedrive/onedrive.sh
 %config(noreplace) %{_usr}/local/onedrive/conf/config
 # 文档
 %doc
