@@ -70,7 +70,7 @@ jobs:
                 if [ -z "$run_workflow" ]; then
                   break
                 fi
-                echo "当前有编译任务进行中，等到5s后重试"
+                echo "当前有编译任务进行中，等待30s后重试"
                 sleep 30
                 run_workflow=$(curl https://api.github.com/repos/codetiger666/rpms/actions/runs | jq '.workflow_runs[] | select(.name == "release")' | jq 'select(.status == "queued" or .status == "in_progress")')
               done

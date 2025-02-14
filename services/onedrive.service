@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=forking
-User=3000
-Group=3000
+User=onedrive
+Group=onedrive
 Restart=on-failure
 RestartSec=5s
 ExecStart=/usr/local/onedrive/onedrive start

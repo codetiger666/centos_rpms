@@ -7,8 +7,8 @@ Wants=network-online.target nss-lookup.target
 [Service]
 MemorySwapMax=0
 Type=forking
-User=3000
-Group=3000
+User=nezha
+Group=nezha
 ExecStart=/etc/nezha/nezha-server.sh start
 ExecStop=/etc/nezha/nezha-server.sh stop
 
