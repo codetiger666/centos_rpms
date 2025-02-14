@@ -1,4 +1,4 @@
-openresty=1.25.3.1=openresty/openresty
+openresty=1.25.3.2=openresty/openresty
 nezha-agent=1.7.2=nezhahq/agent
 nezha-server=1.7.3=nezhahq/nezha
 onedrive=2.5.3=abraunegg/onedrive
