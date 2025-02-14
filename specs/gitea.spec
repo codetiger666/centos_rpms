@@ -28,6 +28,8 @@ Requires:       git openssh-server
 if [ $1 == 1 ]; then
     groupadd -g 3000 -o gitea || true
     useradd -u 3000 -o gitea -g gitea -s /sbin/nologin || true
+    groupadd -g 3000 -o git || true
+    useradd -u 3000 -o git -g git || true
     chown -R gitea:gitea /usr/local/gitea
 fi
 
@@ -44,6 +46,8 @@ fi
 if [ $1 == 0 ]; then
     userdel gitea || true
     groupdel gitea || true
+    userdel git || true
+    groupdel git || true
 fi
 
 # 文件列表
