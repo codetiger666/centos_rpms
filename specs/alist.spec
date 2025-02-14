@@ -34,7 +34,7 @@ cp alist %{buildroot}/usr/local/alist/alist
 %post
 if [ $1 == 1 ]; then
     groupadd -g 3000 -o alist || true
-    useradd -u 3000 -o alist -s /sbin/nologin || true
+    useradd -u 3000 -o alist -g alist -s /sbin/nologin || true
     chown -R alist:alist /usr/local/alist
 fi
 

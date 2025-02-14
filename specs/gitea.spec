@@ -27,7 +27,7 @@ Requires:       git openssh-server
 %post
 if [ $1 == 1 ]; then
     groupadd -g 3000 -o gitea || true
-    useradd -u 3000 -o gitea -s /sbin/nologin || true
+    useradd -u 3000 -o gitea -g gitea -s /sbin/nologin || true
     chown -R gitea:gitea /usr/local/gitea
 fi
 

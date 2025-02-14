@@ -39,7 +39,7 @@ rm -rf %{buildroot}/usr/lib/systemd/user/onedrive.service
 %post
 if [ $1 == 1 ]; then
     groupadd -g 3000 -o onedrive || true
-    useradd -u 3000 -o onedrive -s /sbin/nologin || true
+    useradd -u 3000 -o onedrive -g onedrive -s /sbin/nologin || true
     chown -R onedrive:onedrive /usr/local/onedrive
 fi
 

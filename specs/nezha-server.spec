@@ -32,7 +32,7 @@ chmod +x %{buildroot}/etc/nezha/nezha-server
 %post
 if [ $1 == 1 ]; then
     groupadd -g 3000 -o nezha || true
-    useradd -u 3000 -o nezha || true
+    useradd -u 3000 -o nezha -g nezha -s /sbin/nologin || true
     chown -R nezha:nezha /etc/nezha
 fi
 

@@ -37,7 +37,7 @@ make install DESTDIR=%{buildroot}
 # 安装前准备
 %pre
 if [ $1 == 1 ]; then
-   useradd nginx -s /sbin/nologin 2> /dev/null
+   useradd nginx -s /sbin/nologin || true
 fi
 
 # 安装后操作

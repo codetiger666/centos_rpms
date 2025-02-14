@@ -27,7 +27,7 @@ Source4:        web-vault
 %post
 if [ $1 == 1 ]; then
     groupadd -g 3000 -o vaultwarden || true
-    useradd -u 3000 -o vaultwarden || true
+    useradd -u 3000 -g vaultwarden -o vaultwarden -s /sbin/nologin || true
     chown -R vaultwarden:vaultwarden /usr/local/vaultwarden
 fi
 

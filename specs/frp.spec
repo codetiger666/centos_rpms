@@ -31,7 +31,7 @@ cp %{name}-%{version}/frps* %{buildroot}/usr/local/frp
 %post
 if [ $1 == 1 ]; then
     useradd frp -s /sbin/nologin || true
-    chown -R alist:alist /usr/local/frp
+    chown -R frp:frp /usr/local/frp
 fi
 
 # 卸载前准备
