@@ -8,8 +8,8 @@ User=onedrive
 Group=onedrive
 Restart=on-failure
 RestartSec=5s
-ExecStart=/usr/local/onedrive/onedrive start
-ExecStop=/usr/local/onedrive/onedrive stop
+ExecStart=/usr/local/onedrive/onedrive.sh start
+ExecStop=/usr/local/onedrive/onedrive.sh stop
 
 [Install]
 WantedBy=multi-user.target
