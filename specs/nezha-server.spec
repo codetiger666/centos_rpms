@@ -22,8 +22,8 @@ unzip -d %{name}-%{version} %{SOURCE0}
 # 安装
 %install
 %{__mkdir} -p %{buildroot}/etc/nezha/data
-cp %{name}-%{version}/dashboard-linux-codetiger_arch %{buildroot}/etc/nezha/nezha-server
-chmod +x %{buildroot}/etc/nezha/nezha-server
+cp %{name}-%{version}/dashboard-linux-codetiger_arch  %{buildroot}/usr/bin/nezha-server
+chmod +x  %{buildroot}/usr/bin/nezha-server
 %{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}%{_usr}/lib/systemd/system/nezha-server.service
 %{__install} -p -D -m 0755 %{SOURCE2} %{buildroot}/etc/nezha/nezha-server.sh
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}/etc/nezha/data/config.yaml

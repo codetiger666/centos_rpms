@@ -17,7 +17,8 @@ Source4:        web-vault
 # 安装
 %install
 %{__mkdir} -p %{buildroot}/usr/local/vaultwarden
-%{__install} -p -D -m 0755 %{SOURCE0} %{buildroot}%{_usr}/local/vaultwarden/vaultwarden
+%{__mkdir} -p %{buildroot}/usr/bin
+%{__install} -p -D -m 0755 %{SOURCE0}  %{buildroot}/usr/bin/vaultwarden
 %{__install} -p -D -m 0755 %{SOURCE1} %{buildroot}%{_usr}/local/vaultwarden/vaultwarden.sh
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{_usr}/local/vaultwarden/.env
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_usr}/lib/systemd/system/vaultwarden.service

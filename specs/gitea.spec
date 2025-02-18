@@ -18,7 +18,8 @@ Requires:       git openssh-server
 # 安装
 %install
 %{__mkdir} -p %{buildroot}/usr/local/gitea
-%{__install} -p -D -m 0755 %{SOURCE0} %{buildroot}%{_usr}/local/gitea/gitea
+%{__mkdir} -p %{buildroot}/usr/bin
+%{__install} -p -D -m 0755 %{SOURCE0}  %{buildroot}/usr/bin/gitea
 %{__install} -p -D -m 0755 %{SOURCE1} %{buildroot}%{_usr}/local/gitea/gitea.sh
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{_usr}/local/gitea/config
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_usr}/lib/systemd/system/gitea.service

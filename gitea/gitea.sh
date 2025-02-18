@@ -7,7 +7,7 @@ source $PROGRAM_PATH/config
 
 case "$1" in
 start)
-    ${PROGRAM_PATH}/${APP_NAME} web --work-path $WORK_PATH --config $WORK_PATH/conf/app.ini -p $WORK_PORT > ${PROGRAM_PATH}/${APP_NAME}.log 2>&1 &
+    ${APP_NAME} web --work-path $WORK_PATH --config $WORK_PATH/conf/app.ini -p $WORK_PORT > ${PROGRAM_PATH}/${APP_NAME}.log 2>&1 &
     echo $! > $PROGRAM_PATH/$APP_NAME.pid
     ;;
 stop)

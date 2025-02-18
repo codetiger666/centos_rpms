@@ -6,7 +6,7 @@ PROGRAM_PATH=$(dirname "$(realpath "$0")")
 
 case "$1" in
 start)
-    onedrive --confdir $PROGRAM_PATH/conf -m > $PROGRAM_PATH/$APP_NAME.log 2>&1 &
+    ${APP_NAME} --confdir $PROGRAM_PATH/conf -m > $PROGRAM_PATH/$APP_NAME.log 2>&1 &
     echo $! > $PROGRAM_PATH/$APP_NAME.pid
     ;;
 stop)

@@ -7,7 +7,7 @@ source $PROGRAM_PATH/config
 case "$1" in
 start)
     cd $WORK_PATH
-    ${PROGRAM_PATH}/${APP_NAME} server > ${PROGRAM_PATH}/${APP_NAME}.log 2>&1 &
+    ${APP_NAME} server > ${PROGRAM_PATH}/${APP_NAME}.log 2>&1 &
     echo $! > $PROGRAM_PATH/$APP_NAME.pid
     ;;
 stop)

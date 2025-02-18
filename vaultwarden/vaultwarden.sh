@@ -4,7 +4,7 @@ APP_NAME=vaultwarden
 
 case "$1" in
 start)
-    ${PROGRAM_PATH}/${APP_NAME} > ${PROGRAM_PATH}/${APP_NAME}.log 2>&1 &
+    ${APP_NAME} > ${PROGRAM_PATH}/${APP_NAME}.log 2>&1 &
     echo $! > $PROGRAM_PATH/$APP_NAME.pid
     ;;
 stop)

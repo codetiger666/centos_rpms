@@ -5,7 +5,7 @@ APP_NAME=nezha-server
 case "$1" in
 start)
     cd ${PROGRAM_PATH}
-    ${PROGRAM_PATH}/${APP_NAME} > ${PROGRAM_PATH}/${APP_NAME}.log 2>&1 & > $PROGRAM_PATH/$APP_NAME.pid
+    ${APP_NAME} > ${PROGRAM_PATH}/${APP_NAME}.log 2>&1 & > $PROGRAM_PATH/$APP_NAME.pid
     ;;
 stop)
     if [ -e ${PROGRAM_PATH}/${APP_NAME}.pid ];then

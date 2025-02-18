@@ -28,7 +28,7 @@ fi
 # 安装
 %install
 %{__mkdir} -p %{buildroot}/usr/local/nezha
-cp %{name}-%{version}/nezha-agent %{buildroot}/usr/local/nezha/nezha-agent
+cp %{name}-%{version}/nezha-agent %{buildroot}/usr/bin/nezha-agent
 %{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}%{_usr}/lib/systemd/system/nezha-agent.service
 %{__install} -p -D -m 0755 %{SOURCE2} %{buildroot}/usr/local/nezha/nezha-agent.sh
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}/usr/local/nezha/agent.conf
