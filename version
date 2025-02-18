@@ -1,6 +1,6 @@
 openresty=1.25.3.2=openresty/openresty
 nezha-agent=1.7.3=nezhahq/agent
-nezha-server=1.7.4=nezhahq/nezha
+nezha-server=1.7.5=nezhahq/nezha
 onedrive=2.5.4=abraunegg/onedrive
 openssh=9.9p1=openssh/openssh-portable
 frp=0.61.1=fatedier/frp
