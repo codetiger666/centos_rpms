@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自编译软件仓库</title>
+    <style>
+        /* 取消移动端点击背景效果 */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .folder {
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .folder::before {
+            content: "📁 ";
+        }
+        .file::before {
+            content: "📄 ";
+        }
+        .nested {
+            margin-left: 5px; /* 缩小缩进值 */
+            opacity: 0; /* 初始透明度为 0 */
+            transform: scaleY(0); /* 初始高度为 0 */
+            transform-origin: top; /* 从顶部开始缩放 */
+            transition: opacity 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
+            max-height: 0; /* 初始高度为 0 */
+            /*overflow: hidden; /* 隐藏溢出内容 */*/
+        }
+        .nested.active {
+            opacity: 1; /* 完全显示 */
+            transform: scaleY(1); /* 恢复原始高度 */
+            max-height: 1000px; /* 设置一个足够大的值 */
+        }
+    </style>
+</head>
+<body>
+    <h1>自编译软件仓库</h1>
+    <ul id="fileList"></ul>
+
+    <script>
+        // GitHub API URL to list repository contents
+        const repo = 'codetiger666/rpms'; // Replace with your username and repository name
+        const branch = 'release'; // Replace with your branch name
+        const apiUrl = `https://api.github.com/repos/${repo}/contents/`;
+
+        // Fetch the list of files and folders from the repository
+        fetch(apiUrl + "?ref=" + branch)
+            .then(response => response.json())
+            .then(data => {
+                const fileList = document.getElementById('fileList');
+                data.forEach(item => {
+                    // Filter out 'index.html' and 'README.md'
+                    if (item.name === 'index.html' || item.name === 'README.md') {
+                        return;
+                    }
+
+                    const li = document.createElement('li');
+                    if (item.type === 'dir') {
+                        // If it's a folder
+                        li.className = 'folder';
+                        li.textContent = item.name;
+                        li.addEventListener('click', (event) => {
+                            event.preventDefault(); // 阻止默认点击行为
+                            // Only toggle folder if the click is on the folder name itself
+                            if (event.target === li) {
+                                event.stopPropagation(); // Prevent click event from propagating to parent elements
+                                toggleFolder(item.path, li);
+                            }
+                        });
+                    } else {
+                        // If it's a file
+                        li.className = 'file';
+                        const a = document.createElement('a');
+                        a.href = `https://raw.githubusercontent.com/${repo}/${branch}/${item.path}`;
+                        a.textContent = item.name;
+                        a.download = item.name; // Add download attribute to trigger download
+                        a.addEventListener('click', (event) => {
+                            event.stopPropagation(); // Prevent click event from propagating to parent folder
+                        });
+                        li.appendChild(a);
+                    }
+                    fileList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching files:', error));
+
+        // Toggle folder expand/collapse
+        function toggleFolder(path, parentElement) {
+            const nestedList = parentElement.querySelector('.nested');
+            if (nestedList) {
+                nestedList.classList.toggle('active');
+            } else {
+                fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const ul = document.createElement('ul');
+                        ul.className = 'nested';
+                        data.forEach(item => {
+                            // Filter out 'index.html' and 'README.md'
+                            if (item.name === 'index.html' || item.name === 'README.md') {
+                                return;
+                            }
+
+                            const li = document.createElement('li');
+                            if (item.type === 'dir') {
+                                li.className = 'folder';
+                                li.textContent = item.name;
+                                li.addEventListener('click', (event) => {
+                                    event.preventDefault(); // 阻止默认点击行为
+                                    // Only toggle folder if the click is on the folder name itself
+                                    if (event.target === li) {
+                                        event.stopPropagation(); // Prevent click event from propagating to parent elements
+                                        toggleFolder(item.path, li);
+                                    }
+                                });
+                            } else {
+                                li.className = 'file';
+                                const a = document.createElement('a');
+                                a.href = `https://raw.githubusercontent.com/${repo}/${branch}/${item.path}`;
+                                a.textContent = item.name;
+                                a.download = item.name; // Add download attribute to trigger download
+                                a.addEventListener('click', (event) => {
+                                    event.stopPropagation(); // Prevent click event from propagating to parent folder
+                                });
+                                li.appendChild(a);
+                            }
+                            ul.appendChild(li);
+                        });
+                        parentElement.appendChild(ul);
+                        // 强制触发重绘，确保动画生效
+                        void ul.offsetHeight; // 触发重绘
+                        ul.classList.add('active'); // 添加 active 类以触发动画
+                    })
+                    .catch(error => console.error('Error fetching folder contents:', error));
+            }
+        }
+    </script>
+</body>
+</html>
